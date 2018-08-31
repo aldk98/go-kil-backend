@@ -12,11 +12,17 @@ Things you may want to cover:
 * Configuration
 
 * Database creation
+```
 rails db:create
+```
 * Database initialization
+```
 rails db:migrate
+```
 * How to run the test suite
+```
 rspec
+```
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
