@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   
   scope :api, defaults: {format: :json} do
-    devise_for :customers
+    devise_for :customers, controllers: {
+      sessions: 'customers/sessions'
+    }
+
+    devise_scope :customer do
+      get 'customers/current', to: 'customers/sessions#show'
+    end
+
     devise_for :drivers
   end
   
