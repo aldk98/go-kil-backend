@@ -8,9 +8,12 @@ Rails.application.routes.draw do
     # get 'orders/:id', to:'users/orders#show'
     # delete 'orders/:id', to:'users/orders#delete'
     # update 'orders', 
-    scope module: 'users' do
-      resources :orders
+    scope module: 'users/customer', path: 'users/customer' do
+        resources :orders
     end
+    scope module: 'users/driver', path: 'users/driver' do
+      resources :orders
+  end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
