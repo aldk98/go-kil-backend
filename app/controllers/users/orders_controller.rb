@@ -18,7 +18,6 @@ class Users::OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    
     @order = Order.new(order_params)
     @order.customer_id = current_user.id
     if @order.save
@@ -54,6 +53,6 @@ class Users::OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order)
-            .permit(:fare, :status).permit!(:start_location, :end_location)
+            .permit!
     end
 end
