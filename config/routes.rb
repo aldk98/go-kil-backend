@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     scope module: 'users/driver', path: 'users/driver' do
       resources :orders
       get '/orders/get_order', to: 'orders#get_order'
-      get 'orders/ongoing', to:'orders#ongoing_order'
-      # driver cant delete order
+      get '/orders/ongoing', to:'orders#ongoing_order'
+      patch '/locations/set', to:'locations#set'
   end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

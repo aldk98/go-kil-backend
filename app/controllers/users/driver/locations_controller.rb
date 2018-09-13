@@ -1,7 +1,8 @@
-class Users::LocationsController < Devise::LocationsController
+class Users::Driver::LocationsController < Devise::LocationsController
+    before_action :authenticate_user!
 
-    def update 
-        if @user.update(user_params) 
+    def set 
+        if @user.update(user_params()) 
           render :show, status: :ok
         else 
           render json: @user.errors, status: :unprocessable_entity 
@@ -12,7 +13,7 @@ class Users::LocationsController < Devise::LocationsController
     private
 
         def user_params
-            params.require(:location).permit!
+            params.require(:user).permit!
         end
 
         def set_user 
