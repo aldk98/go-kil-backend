@@ -14,6 +14,12 @@ class Users::Customer::OrdersController < ApplicationController
   def show
     render json: @order
   end
+  
+  # GET /orders/ongoing
+  def ongoing_order
+    @order= Order.where(customer_id: current_user.id).where(status: Order.statuses[:ongoing]).take!
+    render json: @order
+  end
 
   # POST /orders
   # POST /orders.json

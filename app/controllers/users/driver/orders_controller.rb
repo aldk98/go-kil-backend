@@ -1,4 +1,4 @@
-class Users::Customer::OrdersController < ApplicationController
+class Users::Driver::OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
@@ -15,19 +15,21 @@ class Users::Customer::OrdersController < ApplicationController
     render json: @order
   end
 
-  # POST /orders
-  # POST /orders.json
-  def create
-    @order = Order.new(order_params)
-    @order.customer_id = current_user.id
-    if @order.save
-      render json: @order, status: :created
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
-  
+  # GET /orders/get_order_within_2_km
+  def get_order
+    driver_position=current_user.last_location['formatted_address']
+    @order=Order.find(:all, 
+      :origin=>driver_position, 
+      :within=>2).take!
+    @order.update(status: Order.statuses[:on_pickup])
+    render json: @order
+  end
+  def ongoing_order
+    @order= Order.where(driver_id: current_user.id).where(status: Order.statuses[:ongoing]).take!
+    render json: @order
   end
 
+  def 
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
@@ -46,9 +48,9 @@ class Users::Customer::OrdersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
+      def set_order
+        @order = Order.find(params[:id])
+      end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params

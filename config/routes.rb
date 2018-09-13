@@ -9,10 +9,14 @@ Rails.application.routes.draw do
     # delete 'orders/:id', to:'users/orders#delete'
     # update 'orders', 
     scope module: 'users/customer', path: 'users/customer' do
-        resources :orders
+      resources :orders
+      get 'orders/ongoing', to:'orders#ongoing_order'
     end
     scope module: 'users/driver', path: 'users/driver' do
       resources :orders
+      get '/orders/get_order', to: 'orders#get_order'
+      get 'orders/ongoing', to:'orders#ongoing_order'
+      # driver cant delete order
   end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

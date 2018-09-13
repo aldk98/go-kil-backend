@@ -7,4 +7,5 @@ class Order < ApplicationRecord
               :end_location, presence: true
     validates :fare, numericality: { greater_than: 0 }
     validates_associated :customer, :driver
+    acts_as_mappable
 end
