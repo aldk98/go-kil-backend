@@ -2,7 +2,7 @@ class Users::Driver::LocationsController < Devise::LocationsController
     before_action :authenticate_user!
 
     def set 
-        if @user.update(user_params()) 
+        if @user.update(user_params) 
           render :show, status: :ok
         else 
           render json: @user.errors, status: :unprocessable_entity 
@@ -17,7 +17,7 @@ class Users::Driver::LocationsController < Devise::LocationsController
         end
 
         def set_user 
-            @user = User.find(params[:id]) 
+            @user = current_user
         end
        
 end

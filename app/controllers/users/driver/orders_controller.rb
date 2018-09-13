@@ -29,7 +29,6 @@ class Users::Driver::OrdersController < ApplicationController
     render json: @order
   end
 
-  def 
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
