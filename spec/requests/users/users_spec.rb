@@ -15,7 +15,7 @@ RSpec.describe "Users", type: :request do
         expect(response).to have_http_status(200)
     end    
   end
-  
+
   describe "POST /users" do
       it "return succeed http status" do
         post "/api/users/sign_in", :params => {:user => {:email => "a@a.com",
@@ -30,5 +30,21 @@ RSpec.describe "Users", type: :request do
         expect(response.body).to include("token")
       end
   end
- 
+
+  describe "Signs user in and out" do
+    it "signs user in" do
+      user = FactoryBot.build(:user)      
+      sign_in user
+      get "/api/users/sign_in"
+      expect(controller.current_user).to eq(user)
+    end
+
+    it "signs user out" do
+      user = FactoryBot.build(:user)
+      sign_out user
+      delete "/api/users/sign_out"
+      expect(controller.current_user).to be_nil
+    end
+  end
+  
 end
