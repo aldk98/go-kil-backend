@@ -46,3 +46,6 @@ go-kil-backend/.gitignore
 
 # Ignore schema.rb
 /db/schema.rb
+
+# Ignore application configuration
+/config/application.yml
